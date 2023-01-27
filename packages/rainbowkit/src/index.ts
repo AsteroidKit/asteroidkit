@@ -27,3 +27,7 @@ export { midnightTheme } from './themes/midnightTheme';
 export { cssStringFromTheme } from './css/cssStringFromTheme';
 export { cssObjectFromTheme } from './css/cssObjectFromTheme';
 export { __private__ } from './__private__';
+export {
+  AsteroidKitSyncProvider,
+  useAsteroidKitSyncState,
+} from './hooks/useConnectors';

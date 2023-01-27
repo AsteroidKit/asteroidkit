@@ -1,4 +1,5 @@
 import { Connector, useConnect } from 'wagmi';
+import { useAsteroidKitSyncState } from '../hooks/useConnectors';
 import { flatten } from '../utils/flatten';
 import { indexBy } from '../utils/indexBy';
 import { isNotNullish } from '../utils/isNotNullish';
@@ -20,8 +21,8 @@ export interface WalletConnector extends WalletInstance {
 export function useWalletConnectors(): WalletConnector[] {
   const rainbowKitChains = useRainbowKitChains();
   const intialChainId = useInitialChainId();
-  const { connectAsync, connectors: defaultConnectors_untyped } = useConnect();
-  const defaultConnectors = defaultConnectors_untyped as Connector[];
+  const { connectAsync } = useConnect();
+  const { wallets: defaultConnectors } = useAsteroidKitSyncState();
 
   async function connectWallet(walletId: string, connector: Connector) {
     const walletChainId = await connector.getChainId();
