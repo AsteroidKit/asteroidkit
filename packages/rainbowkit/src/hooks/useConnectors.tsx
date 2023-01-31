@@ -2,17 +2,21 @@ import React, { useMemo, useState } from 'react';
 import { configureChains, Connector } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
-import { connectorsForWallets } from '../wallets/connectorsForWallets';
 import { Wallet } from '../wallets/Wallet';
-import { argentWallet, injectedWallet } from '../wallets/walletConnectors';
+import { connectorsForWallets } from '../wallets/connectorsForWallets';
+import { argentWallet } from '../wallets/walletConnectors';
 
 export interface AsteroidKitSyncContextValue {
   setValue: (wallets: () => Connector<any, any, any>[]) => void;
   wallets: Connector<any, any, any>[];
+  ready: boolean;
+  setReady: (ready: boolean) => void;
 }
 
 export const AsteroidKitSyncContext =
   React.createContext<AsteroidKitSyncContextValue>({
+    ready: false,
+    setReady: () => {},
     setValue: () => {},
     wallets: [],
   });
@@ -27,8 +31,11 @@ const useAsteroidKitSyncStateValue = () => {
   ]);
 
   const [wallets, setValue] = useState(defaultWallets());
+  const [ready, setReady] = useState(false);
 
   return {
+    ready,
+    setReady,
     setValue,
     wallets,
   };
@@ -39,18 +46,22 @@ export const AsteroidKitSyncProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { setValue, wallets } = useAsteroidKitSyncStateValue();
+  const { ready, setReady, setValue, wallets } = useAsteroidKitSyncStateValue();
 
   return (
     <AsteroidKitSyncContext.Provider
       value={useMemo(
         () => ({
+          ready,
+          setReady: (ready: boolean) => {
+            setReady(ready);
+          },
           setValue: (wallets: () => Connector<any, any, any>[]) => {
             setValue(wallets());
           },
           wallets,
         }),
-        [wallets, setValue]
+        [ready, setReady, wallets, setValue]
       )}
     >
       {children}
@@ -59,9 +70,13 @@ export const AsteroidKitSyncProvider = ({
 };
 
 export const useAsteroidKitSyncState = () => {
-  const { setValue, wallets } = React.useContext(AsteroidKitSyncContext);
+  const { ready, setReady, setValue, wallets } = React.useContext(
+    AsteroidKitSyncContext
+  );
 
   return {
+    ready,
+    setReady,
     setValue,
     wallets,
   };

@@ -6,12 +6,16 @@ import {
 } from '../../css/sprinkles.css';
 import { touchableStyles } from '../../css/touchableStyles';
 import { useConnectionStatus } from '../../hooks/useConnectionStatus';
+import { useAsteroidKitSyncState } from '../../hooks/useConnectors';
 import { isMobile } from '../../utils/isMobile';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
 import { Avatar } from '../Avatar/Avatar';
 import { Box } from '../Box/Box';
 import { DropdownIcon } from '../Icons/Dropdown';
-import { useRainbowKitChains } from '../RainbowKitProvider/RainbowKitChainContext';
+import {
+  useRainbowKitChains,
+  useRainbowKitChainsById,
+} from '../RainbowKitProvider/RainbowKitChainContext';
 import { ConnectButtonRenderer } from './ConnectButtonRenderer';
 
 type AccountStatus = 'full' | 'avatar' | 'address';
@@ -39,6 +43,8 @@ export function ConnectButton({
 }: ConnectButtonProps) {
   const chains = useRainbowKitChains();
   const connectionStatus = useConnectionStatus();
+  const rainbowkitChainsById = useRainbowKitChainsById();
+  const { ready: asteroidKitReady } = useAsteroidKitSyncState();
 
   return (
     <ConnectButtonRenderer>
@@ -50,8 +56,13 @@ export function ConnectButton({
         openChainModal,
         openConnectModal,
       }) => {
-        const ready = mounted && connectionStatus !== 'loading';
-        const unsupportedChain = chain?.unsupported ?? false;
+        const ready =
+          asteroidKitReady && mounted && connectionStatus !== 'loading';
+        let unsupportedChain = chain?.unsupported ?? false;
+
+        if (chain && rainbowkitChainsById[chain?.id] === undefined) {
+          unsupportedChain = true;
+        }
 
         return (
           <Box
