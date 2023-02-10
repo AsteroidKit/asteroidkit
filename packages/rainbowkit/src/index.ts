@@ -1,3 +1,7 @@
+// Asteroidkit ==================================
+export * from './asteroidkit';
+// ==============================================
+
 export * from './components';
 export { getDefaultWallets } from './wallets/getDefaultWallets';
 export { getWalletConnectConnector } from './wallets/getWalletConnectConnector';

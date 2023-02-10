@@ -263,7 +263,7 @@ function SliderSelector({ onClickOption }: SliderSelectorProps) {
       marginTop="10"
       paddingX="8"
       paddingY="12"
-      style={{ 'background-color': '#F0F0F0' }}
+      style={{ backgroundColor: '#F0F0F0' }}
       width="full"
     >
       <Box
@@ -575,23 +575,23 @@ export function ProfileDetails({
               >
                 <div
                   style={{
-                    'display': 'grid',
-                    'grid-gap': '2px',
-                    'grid-template-columns': 'repeat(3, 1fr)',
+                    display: 'grid',
+                    gap: '2px',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
                   }}
                 >
                   {selectedAsset?.map(asset => (
                     <div
                       key={asset.tokenId}
                       style={{
-                        'background-image': `url(${asset.media[0].thumbnail})`,
-                        'background-position': 'center',
-                        'background-size': 'cover',
-                        'border': '1px solid #E5E5E5',
-                        'border-radius': '13px',
-                        'flex': '1',
-                        'height': '100px',
-                        'width': '100px',
+                        backgroundImage: `url(${asset.media[0].thumbnail})`,
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                        border: '1px solid #E5E5E5',
+                        borderRadius: '13px',
+                        flex: '1',
+                        height: '100px',
+                        width: '100px',
                       }}
                     />
                   ))}

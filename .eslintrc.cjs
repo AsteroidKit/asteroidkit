@@ -35,7 +35,7 @@ module.exports = {
     {
       files: ['*.js', '*.mjs'],
       rules: {
-        'import/extensions': ['error', 'always'],
+        'import/extensions': ['off', 'always'],
       },
     },
     {
@@ -49,6 +49,7 @@ module.exports = {
           },
         ],
         'import/no-unresolved': 'off',
+        'eslint-comments/no-unlimited-disable': 'off',
       },
     },
   ],
