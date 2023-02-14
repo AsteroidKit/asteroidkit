@@ -27,7 +27,6 @@ export const MenuButton = React.forwardRef(
       <Box
         as="button"
         borderRadius="menuButton"
-        disabled={currentlySelected}
         display="flex"
         onClick={onClick}
         ref={ref}
