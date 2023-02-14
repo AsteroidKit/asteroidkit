@@ -64,6 +64,7 @@
     "@vanilla-extract/css": "1.9.1",
     "@vanilla-extract/dynamic": "2.0.2",
     "@vanilla-extract/sprinkles": "1.5.0",
+    "alchemy-sdk": "^2.4.2",
     "clsx": "1.1.1",
     "qrcode": "1.5.0",
     "react-remove-scroll": "2.5.4"
