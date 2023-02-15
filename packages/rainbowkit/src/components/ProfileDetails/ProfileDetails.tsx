@@ -540,20 +540,21 @@ export function ProfileDetails({
 
                 {assetsCategory === 'collectables' && (
                   <>
-                    {nftMetadata?.ownedNfts.length && (
-                      <AssetListItem
-                        items={mapCollectionsToAssets(nftMetadata?.ownedNfts)}
-                        onClick={(item: AssetListProps) => {
-                          const nfts = nftMetadata.ownedNfts.filter(
-                            nft => nft.contract.address === item.address
-                          );
+                    {nftMetadata?.ownedNfts !== undefined &&
+                      nftMetadata?.ownedNfts.length > 0 && (
+                        <AssetListItem
+                          items={mapCollectionsToAssets(nftMetadata?.ownedNfts)}
+                          onClick={(item: AssetListProps) => {
+                            const nfts = nftMetadata.ownedNfts.filter(
+                              nft => nft.contract.address === item.address
+                            );
 
-                          setSelectedCollection(item);
-                          setSelectedAsset(nfts);
-                          setScreen('details');
-                        }}
-                      />
-                    )}
+                            setSelectedCollection(item);
+                            setSelectedAsset(nfts);
+                            setScreen('details');
+                          }}
+                        />
+                      )}
                   </>
                 )}
 
