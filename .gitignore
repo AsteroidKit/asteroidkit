@@ -41,7 +41,9 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
+**/node_modules/*
+!packages/rainbowkit/node_modules/@firebase
+!packages/rainbowkit/node_modules/@toruslabs
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -85,6 +87,8 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
+!packages/rainbowkit/node_modules/@firebase/**/*
+!packages/rainbowkit/node_modules/@toruslabs/**/*
 
 # Gatsby files
 .cache/

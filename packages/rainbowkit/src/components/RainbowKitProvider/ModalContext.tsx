@@ -11,6 +11,7 @@ import { useConnectionStatus } from '../../hooks/useConnectionStatus';
 import { AccountModal } from '../AccountModal/AccountModal';
 import { ChainModal } from '../ChainModal/ChainModal';
 import { ConnectModal } from '../ConnectModal/ConnectModal';
+import { UserDetailsModal } from '../UserDetailsModal/UserDetailsModal';
 import { useAuthenticationStatus } from './AuthenticationContext';
 
 function useModalStateValue() {
@@ -27,15 +28,18 @@ interface ModalContextValue {
   accountModalOpen: boolean;
   chainModalOpen: boolean;
   connectModalOpen: boolean;
+  userDetailsModalOpen: boolean;
   openAccountModal?: () => void;
   openChainModal?: () => void;
   openConnectModal?: () => void;
+  openUserDetailsModal?: () => void;
 }
 
 const ModalContext = createContext<ModalContextValue>({
   accountModalOpen: false,
   chainModalOpen: false,
   connectModalOpen: false,
+  userDetailsModalOpen: false,
 });
 
 interface ModalProviderProps {
@@ -43,6 +47,12 @@ interface ModalProviderProps {
 }
 
 export function ModalProvider({ children }: ModalProviderProps) {
+  const {
+    closeModal: closeUserDetailsModal,
+    isModalOpen: userDetailsModalOpen,
+    openModal: openUserDetailsModal,
+  } = useModalStateValue();
+
   const {
     closeModal: closeConnectModal,
     isModalOpen: connectModalOpen,
@@ -77,6 +87,7 @@ export function ModalProvider({ children }: ModalProviderProps) {
     }
     closeAccountModal();
     closeChainModal();
+    closeUserDetailsModal();
   }
 
   const isUnauthenticated = useAuthenticationStatus() === 'unauthenticated';
@@ -103,6 +114,8 @@ export function ModalProvider({ children }: ModalProviderProps) {
             connectionStatus === 'unauthenticated'
               ? openConnectModal
               : undefined,
+          openUserDetailsModal: openUserDetailsModal,
+          userDetailsModalOpen,
         }),
         [
           connectionStatus,
@@ -110,13 +123,19 @@ export function ModalProvider({ children }: ModalProviderProps) {
           accountModalOpen,
           chainModalOpen,
           connectModalOpen,
+          userDetailsModalOpen,
           openAccountModal,
           openChainModal,
           openConnectModal,
+          openUserDetailsModal,
         ]
       )}
     >
       {children}
+      <UserDetailsModal
+        onClose={closeConnectModal}
+        open={userDetailsModalOpen}
+      />
       <ConnectModal onClose={closeConnectModal} open={connectModalOpen} />
       <AccountModal onClose={closeAccountModal} open={accountModalOpen} />
       <ChainModal onClose={closeChainModal} open={chainModalOpen} />
@@ -148,4 +167,9 @@ export function useChainModal() {
 export function useConnectModal() {
   const { openConnectModal } = useContext(ModalContext);
   return { openConnectModal };
+}
+
+export function useUserDetailsModal() {
+  const { openUserDetailsModal } = useContext(ModalContext);
+  return { openUserDetailsModal };
 }

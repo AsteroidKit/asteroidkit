@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "postinstall": "husky install",
-    "dev": "pnpm --recursive --parallel --filter @rainbow-me/rainbowkit* --filter example dev",
+    "dev": "pnpm --recursive --parallel --filter @rainbow-me/rainbowkit* --filter asteroidkit-example --filter example dev",
     "dev:lib": "pnpm --filter @rainbow-me/rainbowkit* dev",
     "dev:example": "pnpm dev:lib & pnpm --filter example dev",
     "dev:site": "pnpm dev:lib & pnpm --filter site dev",
@@ -83,5 +83,8 @@
     "onlyBuiltDependencies": [
       "esbuild"
     ]
+  },
+  "dependencies": {
+    "firebase": "^9.17.1"
   }
 }
