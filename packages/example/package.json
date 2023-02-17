@@ -5,7 +5,7 @@
   "private": true,
   "main": "index.js",
   "dependencies": {
-    "@rainbow-me/rainbowkit": "workspace:*",
+    "@rainbow-me/rainbowkit": "workspace:asteroidkit@*",
     "@rainbow-me/rainbowkit-siwe-next-auth": "workspace:*",
     "ethers": "^5.0.0",
     "next": "^12.1.6",

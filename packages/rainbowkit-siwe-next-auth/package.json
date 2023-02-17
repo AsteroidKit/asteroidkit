@@ -35,7 +35,7 @@
     "siwe": "^1.1.6"
   },
   "devDependencies": {
-    "@rainbow-me/rainbowkit": "workspace:*",
+    "@rainbow-me/rainbowkit": "workspace:asteroidkit@*",
     "siwe": "^1.1.6"
   },
   "repository": {

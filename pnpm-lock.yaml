@@ -90,7 +90,7 @@ importers:
 
   examples/with-create-react-app:
     specifiers:
-      '@rainbow-me/rainbowkit': workspace:*
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
       '@testing-library/jest-dom': ^5.16.4
       '@testing-library/react': ^13.2.0
       '@testing-library/user-event': ^13.5.0
@@ -101,7 +101,7 @@ importers:
       util: 0.12.4
       web-vitals: ^2.1.4
     dependencies:
-      '@rainbow-me/rainbowkit': link:../../packages/rainbowkit
+      '@rainbow-me/rainbowkit': link:../../packages/asteroidkit
       '@testing-library/jest-dom': 5.16.4
       '@testing-library/react': 13.3.0
       '@testing-library/user-event': 13.5.0
@@ -114,12 +114,12 @@ importers:
 
   examples/with-next:
     specifiers:
-      '@rainbow-me/rainbowkit': workspace:*
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
       eslint: ^8.15.0
       eslint-config-next: ^12.1.6
       ethers: ^5.0.0
     dependencies:
-      '@rainbow-me/rainbowkit': link:../../packages/rainbowkit
+      '@rainbow-me/rainbowkit': link:../../packages/asteroidkit
       ethers: 5.6.8
     devDependencies:
       eslint: 8.15.0
@@ -127,12 +127,12 @@ importers:
 
   examples/with-next-custom-button:
     specifiers:
-      '@rainbow-me/rainbowkit': workspace:*
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
       eslint: 8.15.0
       eslint-config-next: 12.1.6
       ethers: ^5.6.1
     dependencies:
-      '@rainbow-me/rainbowkit': link:../../packages/rainbowkit
+      '@rainbow-me/rainbowkit': link:../../packages/asteroidkit
       ethers: 5.6.8
     devDependencies:
       eslint: 8.15.0
@@ -140,13 +140,13 @@ importers:
 
   examples/with-next-mint-nft:
     specifiers:
-      '@rainbow-me/rainbowkit': workspace:*
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
       eslint: 8.15.0
       eslint-config-next: 12.1.6
       ethers: ^5.6.1
       framer-motion: ^6.3.3
     dependencies:
-      '@rainbow-me/rainbowkit': link:../../packages/rainbowkit
+      '@rainbow-me/rainbowkit': link:../../packages/asteroidkit
       ethers: 5.6.8
       framer-motion: 6.3.10
     devDependencies:
@@ -155,14 +155,14 @@ importers:
 
   examples/with-next-siwe-iron-session:
     specifiers:
-      '@rainbow-me/rainbowkit': workspace:*
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
       eslint: ^8.15.0
       eslint-config-next: ^12.1.6
       ethers: ^5.0.0
       iron-session: ^6.1.3
       siwe: ^1.1.6
     dependencies:
-      '@rainbow-me/rainbowkit': link:../../packages/rainbowkit
+      '@rainbow-me/rainbowkit': link:../../packages/asteroidkit
       ethers: 5.6.8
       iron-session: 6.1.3
       siwe: 1.1.6_ethers@5.6.8
@@ -172,14 +172,14 @@ importers:
 
   examples/with-next-siwe-next-auth:
     specifiers:
-      '@rainbow-me/rainbowkit': workspace:*
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
       '@rainbow-me/rainbowkit-siwe-next-auth': workspace:*
       eslint: ^8.15.0
       eslint-config-next: ^12.1.6
       ethers: ^5.0.0
       siwe: ^1.1.6
     dependencies:
-      '@rainbow-me/rainbowkit': link:../../packages/rainbowkit
+      '@rainbow-me/rainbowkit': link:../../packages/asteroidkit
       '@rainbow-me/rainbowkit-siwe-next-auth': link:../../packages/rainbowkit-siwe-next-auth
       ethers: 5.6.8
       siwe: 1.1.6_ethers@5.6.8
@@ -190,7 +190,7 @@ importers:
   examples/with-remix:
     specifiers:
       '@ethersproject/providers': ^5.5.1
-      '@rainbow-me/rainbowkit': workspace:*
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
       '@remix-run/dev': ^1.5.1
       '@remix-run/eslint-config': ^1.5.1
       '@remix-run/node': ^1.5.1
@@ -201,7 +201,7 @@ importers:
       ethers: ^5.0.0
     dependencies:
       '@ethersproject/providers': 5.6.8
-      '@rainbow-me/rainbowkit': link:../../packages/rainbowkit
+      '@rainbow-me/rainbowkit': link:../../packages/asteroidkit
       '@remix-run/node': 1.5.1
       '@remix-run/react': 1.5.1
       '@remix-run/serve': 1.5.1
@@ -214,120 +214,20 @@ importers:
 
   examples/with-vite:
     specifiers:
-      '@rainbow-me/rainbowkit': workspace:*
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
       '@vitejs/plugin-react': ^1.3.0
       buffer: ^6.0.3
       ethers: ^5.0.0
       vite: ^2.9.9
     dependencies:
-      '@rainbow-me/rainbowkit': link:../../packages/rainbowkit
+      '@rainbow-me/rainbowkit': link:../../packages/asteroidkit
       buffer: 6.0.3
       ethers: 5.6.8
     devDependencies:
       '@vitejs/plugin-react': 1.3.2
       vite: 2.9.14
 
-  packages/asteroidkit-example:
-    specifiers:
-      '@esbuild-plugins/node-globals-polyfill': ^0.1.1
-      '@esbuild-plugins/node-modules-polyfill': ^0.1.4
-      '@rainbow-me/rainbowkit': workspace:*
-      '@types/react': ^18.0.26
-      '@types/react-dom': ^18.0.9
-      '@vitejs/plugin-react-swc': ^3.0.0
-      esbuild: '*'
-      ethers: ^5.0.0
-      rollup-plugin-node-polyfills: ^0.2.1
-      siwe: ^1.1.6
-      typescript: ^4.9.3
-      vite: 3.2.3
-    dependencies:
-      '@rainbow-me/rainbowkit': link:../rainbowkit
-      esbuild: 0.15.18
-      ethers: 5.7.2
-      siwe: 1.1.6_ethers@5.7.2
-    devDependencies:
-      '@esbuild-plugins/node-globals-polyfill': 0.1.1_esbuild@0.15.18
-      '@esbuild-plugins/node-modules-polyfill': 0.1.4_esbuild@0.15.18
-      '@types/react': 18.0.26
-      '@types/react-dom': 18.0.10
-      '@vitejs/plugin-react-swc': 3.1.0_vite@3.2.3
-      rollup-plugin-node-polyfills: 0.2.1
-      typescript: 4.9.4
-      vite: 3.2.3
-
-  packages/create-rainbowkit:
-    specifiers:
-      '@types/fs-extra': 9.0.13
-      '@types/prompts': 2.0.14
-      '@types/validate-npm-package-name': 3.0.3
-      chalk: 5.0.1
-      commander: 9.2.0
-      cpy: 9.0.1
-      execa: 6.1.0
-      fs-extra: 10.1.0
-      prompts: 2.4.2
-      validate-npm-package-name: 4.0.0
-    dependencies:
-      chalk: 5.0.1
-      commander: 9.2.0
-      cpy: 9.0.1
-      execa: 6.1.0
-      fs-extra: 10.1.0
-      prompts: 2.4.2
-      validate-npm-package-name: 4.0.0
-    devDependencies:
-      '@types/fs-extra': 9.0.13
-      '@types/prompts': 2.0.14
-      '@types/validate-npm-package-name': 3.0.3
-
-  packages/create-rainbowkit/generated-test-app:
-    specifiers:
-      '@rainbow-me/rainbowkit': workspace:*
-      eslint: ^8.15.0
-      eslint-config-next: ^12.1.6
-      ethers: ^5.0.0
-    dependencies:
-      '@rainbow-me/rainbowkit': link:../../rainbowkit
-      ethers: 5.6.8
-    devDependencies:
-      eslint: 8.15.0
-      eslint-config-next: 12.1.6_eslint@8.15.0
-
-  packages/create-rainbowkit/templates/next-app:
-    specifiers:
-      '@rainbow-me/rainbowkit': workspace:*
-      eslint: ^8.15.0
-      eslint-config-next: ^12.1.6
-      ethers: ^5.0.0
-    dependencies:
-      '@rainbow-me/rainbowkit': link:../../../rainbowkit
-      ethers: 5.6.8
-    devDependencies:
-      eslint: 8.15.0
-      eslint-config-next: 12.1.6_eslint@8.15.0
-
-  packages/example:
-    specifiers:
-      '@rainbow-me/rainbowkit': workspace:*
-      '@rainbow-me/rainbowkit-siwe-next-auth': workspace:*
-      ethers: ^5.0.0
-      next: ^12.1.6
-      next-auth: ^4.10.2
-      react: ^18.1.0
-      react-dom: ^18.1.0
-      siwe: ^1.1.6
-    dependencies:
-      '@rainbow-me/rainbowkit': link:../rainbowkit
-      '@rainbow-me/rainbowkit-siwe-next-auth': link:../rainbowkit-siwe-next-auth
-      ethers: 5.6.2
-      next: 12.1.6_ef5jwxihqo6n7gxfmzogljlgcm
-      next-auth: 4.10.2_ef5jwxihqo6n7gxfmzogljlgcm
-      react: 18.1.0
-      react-dom: 18.1.0_react@18.1.0
-      siwe: 1.1.6_ethers@5.6.2
-
-  packages/rainbowkit:
+  packages/asteroidkit:
     specifiers:
       '@ethersproject/abstract-provider': ^5.5.1
       '@ethersproject/providers': ^5.5.1
@@ -368,24 +268,124 @@ importers:
       react-remove-scroll: 2.5.4_react@18.1.0
       siwe: 1.1.6_ethers@5.7.2
     devDependencies:
-      '@ethersproject/abstract-provider': 5.6.0
-      '@ethersproject/providers': 5.6.2
+      '@ethersproject/abstract-provider': 5.7.0
+      '@ethersproject/providers': 5.7.2
       '@types/qrcode': 1.4.2
       '@vanilla-extract/css-utils': 0.1.2
       '@vanilla-extract/private': 1.0.3
-      autoprefixer: 10.4.2_postcss@8.4.6
+      autoprefixer: 10.4.7_postcss@8.4.21
       ethers: 5.7.2
       nock: 13.2.4
-      postcss: 8.4.6
+      postcss: 8.4.21
       react: 18.1.0
       vitest: 0.5.0
 
+  packages/asteroidkit-example:
+    specifiers:
+      '@esbuild-plugins/node-globals-polyfill': ^0.1.1
+      '@esbuild-plugins/node-modules-polyfill': ^0.1.4
+      '@types/react': ^18.0.26
+      '@types/react-dom': ^18.0.9
+      '@vitejs/plugin-react-swc': ^3.0.0
+      asteroidkit: workspace:*
+      esbuild: '*'
+      ethers: ^5.0.0
+      rollup-plugin-node-polyfills: ^0.2.1
+      siwe: ^1.1.6
+      typescript: ^4.9.3
+      vite: 3.2.3
+    dependencies:
+      asteroidkit: link:../asteroidkit
+      esbuild: 0.15.18
+      ethers: 5.7.2
+      siwe: 1.1.6_ethers@5.7.2
+    devDependencies:
+      '@esbuild-plugins/node-globals-polyfill': 0.1.1_esbuild@0.15.18
+      '@esbuild-plugins/node-modules-polyfill': 0.1.4_esbuild@0.15.18
+      '@types/react': 18.0.26
+      '@types/react-dom': 18.0.10
+      '@vitejs/plugin-react-swc': 3.1.0_vite@3.2.3
+      rollup-plugin-node-polyfills: 0.2.1
+      typescript: 4.9.4
+      vite: 3.2.3
+
+  packages/create-rainbowkit:
+    specifiers:
+      '@types/fs-extra': 9.0.13
+      '@types/prompts': 2.0.14
+      '@types/validate-npm-package-name': 3.0.3
+      chalk: 5.0.1
+      commander: 9.2.0
+      cpy: 9.0.1
+      execa: 6.1.0
+      fs-extra: 10.1.0
+      prompts: 2.4.2
+      validate-npm-package-name: 4.0.0
+    dependencies:
+      chalk: 5.0.1
+      commander: 9.2.0
+      cpy: 9.0.1
+      execa: 6.1.0
+      fs-extra: 10.1.0
+      prompts: 2.4.2
+      validate-npm-package-name: 4.0.0
+    devDependencies:
+      '@types/fs-extra': 9.0.13
+      '@types/prompts': 2.0.14
+      '@types/validate-npm-package-name': 3.0.3
+
+  packages/create-rainbowkit/generated-test-app:
+    specifiers:
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
+      eslint: ^8.15.0
+      eslint-config-next: ^12.1.6
+      ethers: ^5.0.0
+    dependencies:
+      '@rainbow-me/rainbowkit': link:../../asteroidkit
+      ethers: 5.6.8
+    devDependencies:
+      eslint: 8.15.0
+      eslint-config-next: 12.1.6_eslint@8.15.0
+
+  packages/create-rainbowkit/templates/next-app:
+    specifiers:
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
+      eslint: ^8.15.0
+      eslint-config-next: ^12.1.6
+      ethers: ^5.0.0
+    dependencies:
+      '@rainbow-me/rainbowkit': link:../../../asteroidkit
+      ethers: 5.6.8
+    devDependencies:
+      eslint: 8.15.0
+      eslint-config-next: 12.1.6_eslint@8.15.0
+
+  packages/example:
+    specifiers:
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
+      '@rainbow-me/rainbowkit-siwe-next-auth': workspace:*
+      ethers: ^5.0.0
+      next: ^12.1.6
+      next-auth: ^4.10.2
+      react: ^18.1.0
+      react-dom: ^18.1.0
+      siwe: ^1.1.6
+    dependencies:
+      '@rainbow-me/rainbowkit': link:../asteroidkit
+      '@rainbow-me/rainbowkit-siwe-next-auth': link:../rainbowkit-siwe-next-auth
+      ethers: 5.6.2
+      next: 12.1.6_ef5jwxihqo6n7gxfmzogljlgcm
+      next-auth: 4.10.2_ef5jwxihqo6n7gxfmzogljlgcm
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
+      siwe: 1.1.6_ethers@5.6.2
+
   packages/rainbowkit-siwe-next-auth:
     specifiers:
-      '@rainbow-me/rainbowkit': workspace:*
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
       siwe: ^1.1.6
     devDependencies:
-      '@rainbow-me/rainbowkit': link:../rainbowkit
+      '@rainbow-me/rainbowkit': link:../asteroidkit
       siwe: 1.1.6
 
   site:
@@ -397,7 +397,7 @@ importers:
       '@radix-ui/react-popover': ^0.1.6
       '@radix-ui/react-portal': ^0.1.4
       '@radix-ui/react-radio-group': ^0.1.5
-      '@rainbow-me/rainbowkit': workspace:*
+      '@rainbow-me/rainbowkit': workspace:asteroidkit@*
       '@react-spring/three': ^9.4.4
       '@react-three/fiber': ^8.0.12
       '@vanilla-extract/css': 1.9.1
@@ -433,7 +433,7 @@ importers:
       '@radix-ui/react-popover': 0.1.6_ef5jwxihqo6n7gxfmzogljlgcm
       '@radix-ui/react-portal': 0.1.4_ef5jwxihqo6n7gxfmzogljlgcm
       '@radix-ui/react-radio-group': 0.1.5_react@18.1.0
-      '@rainbow-me/rainbowkit': link:../packages/rainbowkit
+      '@rainbow-me/rainbowkit': link:../packages/asteroidkit
       '@react-spring/three': 9.4.4_wjm6wxdjmepnv426bzjuegmcfu
       '@react-three/fiber': 8.0.12_w6hzpac57u3p7v6aj52gg7rj6e
       '@vanilla-extract/css': 1.9.1
@@ -833,7 +833,7 @@ packages:
       '@babel/compat-data': 7.17.10
       '@babel/core': 7.18.2
       '@babel/helper-validator-option': 7.16.7
-      browserslist: 4.20.4
+      browserslist: 4.21.5
       semver: 6.3.0
     dev: true
 
@@ -4489,13 +4489,14 @@ packages:
   /@ethersproject/abstract-provider/5.6.0:
     resolution: {integrity: sha512-oPMFlKLN+g+y7a79cLK3WiLcjWFnZQtXWgnLAbHZcN3s7L4v90UHpTOrLk+m3yr0gt+/h9STTM6zrr7PM8uoRw==}
     dependencies:
-      '@ethersproject/bignumber': 5.6.0
-      '@ethersproject/bytes': 5.6.1
-      '@ethersproject/logger': 5.6.0
-      '@ethersproject/networks': 5.6.1
-      '@ethersproject/properties': 5.6.0
-      '@ethersproject/transactions': 5.6.0
-      '@ethersproject/web': 5.6.0
+      '@ethersproject/bignumber': 5.7.0
+      '@ethersproject/bytes': 5.7.0
+      '@ethersproject/logger': 5.7.0
+      '@ethersproject/networks': 5.7.1
+      '@ethersproject/properties': 5.7.0
+      '@ethersproject/transactions': 5.7.0
+      '@ethersproject/web': 5.7.1
+    dev: false
 
   /@ethersproject/abstract-provider/5.6.1:
     resolution: {integrity: sha512-BxlIgogYJtp1FS8Muvj8YfdClk3unZH0vRMVX791Z9INBNT/kuACZ9GzaY1Y4yFq+YSy6/w4gzj3HCRKrK9hsQ==}
@@ -4528,6 +4529,7 @@ packages:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/logger': 5.7.0
       '@ethersproject/properties': 5.7.0
+    dev: false
 
   /@ethersproject/abstract-signer/5.6.2:
     resolution: {integrity: sha512-n1r6lttFBG0t2vNiI3HoWaS/KdOt8xyDjzlP2cuevlWLG6EX0OwcKLyG/Kp/cuwNxdy/ous+R/DEMdTUwWQIjQ==}
@@ -4556,6 +4558,7 @@ packages:
       '@ethersproject/keccak256': 5.7.0
       '@ethersproject/logger': 5.7.0
       '@ethersproject/rlp': 5.7.0
+    dev: false
 
   /@ethersproject/address/5.6.1:
     resolution: {integrity: sha512-uOgF0kS5MJv9ZvCz7x6T2EXJSzotiybApn4XlOgoTX0xdtyVIJ7pF+6cGPxiEq/dpBiTfMiw7Yc81JcwhSYA0Q==}
@@ -4598,6 +4601,7 @@ packages:
     dependencies:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/properties': 5.7.0
+    dev: false
 
   /@ethersproject/basex/5.6.1:
     resolution: {integrity: sha512-a52MkVz4vuBXR06nvflPMotld1FJWSj2QT0985v7P/emPZO00PucFAkbcmq2vpVU7Ts7umKiSI6SppiLykVWsA==}
@@ -4618,6 +4622,7 @@ packages:
       '@ethersproject/bytes': 5.6.1
       '@ethersproject/logger': 5.6.0
       bn.js: 4.12.0
+    dev: false
 
   /@ethersproject/bignumber/5.6.2:
     resolution: {integrity: sha512-v7+EEUbhGqT3XJ9LMPsKvXYHFc8eHxTowFCG/HgJErmq4XHJ2WR7aeyICg3uTOAQ7Icn0GFHAohXEhxQHq4Ubw==}
@@ -4638,6 +4643,7 @@ packages:
     resolution: {integrity: sha512-NwQt7cKn5+ZE4uDn+X5RAXLp46E1chXoaMmrxAyA0rblpxz8t58lVkrHXoRIn0lz1joQElQ8410GqhTqMOwc6g==}
     dependencies:
       '@ethersproject/logger': 5.7.0
+    dev: false
 
   /@ethersproject/bytes/5.7.0:
     resolution: {integrity: sha512-nsbxwgFXWh9NyYWo+U8atvmMsSdKJprTcICAkvbBffT75qDocbuggBU0SJiVK2MuTrp0q+xvLkTnGMPK1+uA9A==}
@@ -4648,6 +4654,7 @@ packages:
     resolution: {integrity: sha512-SrdaJx2bK0WQl23nSpV/b1aq293Lh0sUaZT/yYKPDKn4tlAbkH96SPJwIhwSwTsoQQZxuh1jnqsKwyymoiBdWA==}
     dependencies:
       '@ethersproject/bignumber': 5.7.0
+    dev: false
 
   /@ethersproject/constants/5.6.1:
     resolution: {integrity: sha512-QSq9WVnZbxXYFftrjSjZDUshp6/eKp6qrtdBtUCm0QxCV5z1fG/w3kdlcsjMCQuQHUnAclKoK7XpXMezhRDOLg==}
@@ -4715,6 +4722,7 @@ packages:
       '@ethersproject/logger': 5.7.0
       '@ethersproject/properties': 5.7.0
       '@ethersproject/strings': 5.7.0
+    dev: false
 
   /@ethersproject/hash/5.6.1:
     resolution: {integrity: sha512-L1xAHurbaxG8VVul4ankNX5HgQ8PNCTrnVXEiFnE9xoRnaUcgfD12tZINtDinSllxPLCtGwguQxJ5E6keE84pA==}
@@ -4867,6 +4875,7 @@ packages:
 
   /@ethersproject/logger/5.6.0:
     resolution: {integrity: sha512-BiBWllUROH9w+P21RzoxJKzqoqpkyM1pRnEKG69bulE9TSQD8SAIvTQqIMZmmCO8pUNkgLP1wndX1gKghSpBmg==}
+    dev: false
 
   /@ethersproject/logger/5.7.0:
     resolution: {integrity: sha512-0odtFdXu/XHtjQXJYA3u9G0G8btm0ND5Cu8M7i5vhEcE8/HmF4Lbdqanwyv4uQTr2tx6b7fQRmgLrsnpQlmnig==}
@@ -4875,6 +4884,7 @@ packages:
     resolution: {integrity: sha512-b2rrupf3kCTcc3jr9xOWBuHylSFtbpJf79Ga7QR98ienU2UqGimPGEsYMgbI29KHJfA5Us89XwGVmxrlxmSrMg==}
     dependencies:
       '@ethersproject/logger': 5.7.0
+    dev: false
 
   /@ethersproject/networks/5.6.3:
     resolution: {integrity: sha512-QZxRH7cA5Ut9TbXwZFiCyuPchdWi87ZtVNHWZd0R6YFgYtes2jQ3+bsslJ0WdyDe0i6QumqtoYqvY3rrQFRZOQ==}
@@ -4911,6 +4921,7 @@ packages:
     resolution: {integrity: sha512-szoOkHskajKePTJSZ46uHUWWkbv7TzP2ypdEK6jGMqJaEt2sb0jCgfBo0gH0m2HBpRixMuJ6TBRaQCF7a9DoCg==}
     dependencies:
       '@ethersproject/logger': 5.7.0
+    dev: false
 
   /@ethersproject/properties/5.7.0:
     resolution: {integrity: sha512-J87jy8suntrAkIZtecpxEPxY//szqr1mlBaYlQ0r4RCaiD2hjheqF9s1LVE8vVuJCXisjIP+JgtK/Do54ej4Sw==}
@@ -4920,7 +4931,7 @@ packages:
   /@ethersproject/providers/5.6.2:
     resolution: {integrity: sha512-6/EaFW/hNWz+224FXwl8+HdMRzVHt8DpPmu5MZaIQqx/K/ELnC9eY236SMV7mleCM3NnEArFwcAAxH5kUUgaRg==}
     dependencies:
-      '@ethersproject/abstract-provider': 5.6.0
+      '@ethersproject/abstract-provider': 5.7.0
       '@ethersproject/abstract-signer': 5.6.0
       '@ethersproject/address': 5.6.0
       '@ethersproject/basex': 5.6.0
@@ -4942,6 +4953,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    dev: false
 
   /@ethersproject/providers/5.6.8:
     resolution: {integrity: sha512-Wf+CseT/iOJjrGtAOf3ck9zS7AgPmr2fZ3N97r4+YXN3mBePTG2/bJ8DApl9mVwYL+RpYbNxMEkEp4mPGdwG/w==}
@@ -5003,6 +5015,7 @@ packages:
     dependencies:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/logger': 5.7.0
+    dev: false
 
   /@ethersproject/random/5.6.1:
     resolution: {integrity: sha512-/wtPNHwbmng+5yi3fkipA8YBT59DdkGRoC2vWk09Dci/q5DlgnMkhIycjHlavrvrjJBkFjO/ueLyT+aUDfc4lA==}
@@ -5022,6 +5035,7 @@ packages:
     dependencies:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/logger': 5.7.0
+    dev: false
 
   /@ethersproject/rlp/5.6.1:
     resolution: {integrity: sha512-uYjmcZx+DKlFUk7a5/W9aQVaoEC7+1MOBgNtvNg13+RnuUwT4F0zTovC0tmay5SmRslb29V1B7Y5KCri46WhuQ==}
@@ -5042,6 +5056,7 @@ packages:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/logger': 5.7.0
       hash.js: 1.1.7
+    dev: false
 
   /@ethersproject/sha2/5.6.1:
     resolution: {integrity: sha512-5K2GyqcW7G4Yo3uenHegbXRPDgARpWUiXc6RiF7b6i/HXUoWlb7uCARh7BAHg7/qT/Q5ydofNwiZcim9qpjB6g==}
@@ -5128,6 +5143,7 @@ packages:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/constants': 5.7.0
       '@ethersproject/logger': 5.7.0
+    dev: false
 
   /@ethersproject/strings/5.6.1:
     resolution: {integrity: sha512-2X1Lgk6Jyfg26MUnsHiT456U9ijxKUybz8IM1Vih+NJxYtXhmvKBcHOmvGqpFSVJ0nQ4ZCoIViR8XlRw1v/+Cw==}
@@ -5156,6 +5172,7 @@ packages:
       '@ethersproject/properties': 5.7.0
       '@ethersproject/rlp': 5.7.0
       '@ethersproject/signing-key': 5.7.0
+    dev: false
 
   /@ethersproject/transactions/5.6.2:
     resolution: {integrity: sha512-BuV63IRPHmJvthNkkt9G70Ullx6AcM+SDc+a8Aw/8Yew6YwT51TcBKEp1P4oOQ/bP25I18JJr7rcFRgFtU9B2Q==}
@@ -5274,6 +5291,7 @@ packages:
       '@ethersproject/logger': 5.7.0
       '@ethersproject/properties': 5.7.0
       '@ethersproject/strings': 5.7.0
+    dev: false
 
   /@ethersproject/web/5.6.1:
     resolution: {integrity: sha512-/vSyzaQlNXkO1WV+RneYKqCJwualcUdx/Z3gseVovZP0wIlOFcCE1hkRhKBH8ImKbGQbMl9EAAyJFrJu7V0aqA==}
@@ -6703,7 +6721,7 @@ packages:
       aria-hidden: 1.1.3
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
-      react-remove-scroll: 2.4.4_react@18.1.0
+      react-remove-scroll: 2.5.4_react@18.1.0
     transitivePeerDependencies:
       - '@types/react'
     dev: false
@@ -6789,7 +6807,7 @@ packages:
       aria-hidden: 1.1.3
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
-      react-remove-scroll: 2.4.4_react@18.1.0
+      react-remove-scroll: 2.5.4_react@18.1.0
     transitivePeerDependencies:
       - '@types/react'
     dev: false
@@ -8246,10 +8264,6 @@ packages:
     resolution: {integrity: sha512-fpP+jk2zJ4VW66+wAMFoBJlx1bxmBKx4DUFf68UHgdGCOuyUTDlLWqsaNPJh7xhNDykyJ9eIzAygilP/4WoN8g==}
     dev: false
 
-  /@types/node/17.0.16:
-    resolution: {integrity: sha512-ydLaGVfQOQ6hI1xK2A5nVh8bl0OGoIfYMxPWHqqYe9bTkWCfqiVvZoh2I/QF2sNSkZzZyROBoTefIEI+PB6iIA==}
-    dev: true
-
   /@types/node/17.0.32:
     resolution: {integrity: sha512-eAIcfAvhf/BkHcf4pkLJ7ECpBAhh9kcxRBpip9cTiO+hf+aJrsxYxBeS6OXvOd9WqNAJmavXVpZvY1rBjNsXmw==}
     dev: true
@@ -8301,7 +8315,7 @@ packages:
   /@types/qrcode/1.4.2:
     resolution: {integrity: sha512-7uNT9L4WQTNJejHTSTdaJhfBSCN73xtXaHFyBJ8TSwiLhe4PRuTue7Iph0s2nG9R/ifUaSnGhLUOZavlBEqDWQ==}
     dependencies:
-      '@types/node': 17.0.16
+      '@types/node': 18.11.18
     dev: true
 
   /@types/qs/6.9.7:
@@ -8940,8 +8954,8 @@ packages:
     dependencies:
       '@vanilla-extract/integration': 6.0.0
       outdent: 0.8.0
-      postcss: 8.4.14
-      postcss-load-config: 3.1.4_postcss@8.4.14
+      postcss: 8.4.21
+      postcss-load-config: 3.1.4_postcss@8.4.21
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -10027,6 +10041,22 @@ packages:
       postcss-value-parser: 4.2.0
     dev: true
 
+  /autoprefixer/10.4.7_postcss@8.4.21:
+    resolution: {integrity: sha512-ypHju4Y2Oav95SipEcCcI5J7CGPuvz8oat7sUtYj3ClK44bldfvtvcxK6IEK++7rqB7YchDGzweZIBG+SD0ZAA==}
+    engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
+    peerDependencies:
+      postcss: ^8.1.0
+    dependencies:
+      browserslist: 4.21.5
+      caniuse-lite: 1.0.30001451
+      fraction.js: 4.2.0
+      normalize-range: 0.1.2
+      picocolors: 1.0.0
+      postcss: 8.4.21
+      postcss-value-parser: 4.2.0
+    dev: true
+
   /autoprefixer/10.4.7_postcss@8.4.6:
     resolution: {integrity: sha512-ypHju4Y2Oav95SipEcCcI5J7CGPuvz8oat7sUtYj3ClK44bldfvtvcxK6IEK++7rqB7YchDGzweZIBG+SD0ZAA==}
     engines: {node: ^10 || ^12 || >=14}
@@ -10034,8 +10064,8 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
     dependencies:
-      browserslist: 4.20.4
-      caniuse-lite: 1.0.30001349
+      browserslist: 4.21.5
+      caniuse-lite: 1.0.30001451
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -14765,7 +14795,6 @@ packages:
 
   /fraction.js/4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
-    dev: false
 
   /fragment-cache/0.2.1:
     resolution: {integrity: sha512-GMBAbW9antB8iZRHLoGw0b3HANt57diZYFO/HL1JGIC1MjKrdmhxvrJbupnVvpys0zsz7yBApXdQyfepKly2kA==}
@@ -17280,7 +17309,7 @@ packages:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
   /lodash.set/4.3.2:
-    resolution: {integrity: sha1-2HV7HagH3eJIFrDWqEvqGnYjCyM=}
+    resolution: {integrity: sha512-4hNPN5jlm/N/HLMCO43v8BXKq9Z7QdAGc/VGrRD61w8gN9g/6jF9A4L1pbUgBLCffi0w9VsXfTOij5x8iTyFvg==}
     dev: true
 
   /lodash.sortby/4.7.0:
@@ -18390,7 +18419,7 @@ packages:
     resolution: {integrity: sha512-8GPznwxcPNCH/h8B+XZcKjYPXnUV5clOKCjAqyjsiqA++MpNx9E9+t8YPp0MbThO+KauRo7aZJ1WuIZmOrT2Ug==}
     engines: {node: '>= 10.13'}
     dependencies:
-      debug: 4.3.3
+      debug: 4.3.4
       json-stringify-safe: 5.0.1
       lodash.set: 4.3.2
       propagate: 2.0.1
@@ -19393,23 +19422,6 @@ packages:
       postcss-value-parser: 4.2.0
     dev: false
 
-  /postcss-load-config/3.1.4_postcss@8.4.14:
-    resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
-    engines: {node: '>= 10'}
-    peerDependencies:
-      postcss: '>=8.0.9'
-      ts-node: '>=9.0.0'
-    peerDependenciesMeta:
-      postcss:
-        optional: true
-      ts-node:
-        optional: true
-    dependencies:
-      lilconfig: 2.0.5
-      postcss: 8.4.14
-      yaml: 1.10.2
-    dev: true
-
   /postcss-load-config/3.1.4_postcss@8.4.21:
     resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
     engines: {node: '>= 10'}
@@ -19425,7 +19437,6 @@ packages:
       lilconfig: 2.0.5
       postcss: 8.4.21
       yaml: 1.10.2
-    dev: false
 
   /postcss-loader/6.2.1_2ld2z33ur2hwxddj4y6uprkita:
     resolution: {integrity: sha512-WbbYpmAaKcux/P66bZ40bpWsBucjx/TTgVVzRZ9yUO8yQfVBlameJ0ZGVaPfH64hNSBh63a+ICP5nqOpBA0w+Q==}
@@ -19764,7 +19775,7 @@ packages:
       '@csstools/postcss-trigonometric-functions': 1.0.1_postcss@8.4.6
       '@csstools/postcss-unset-value': 1.0.1_postcss@8.4.6
       autoprefixer: 10.4.7_postcss@8.4.6
-      browserslist: 4.20.4
+      browserslist: 4.21.5
       css-blank-pseudo: 3.0.3_postcss@8.4.6
       css-has-pseudo: 3.0.4_postcss@8.4.6
       css-prefers-color-scheme: 6.0.3_postcss@8.4.6
@@ -20298,7 +20309,7 @@ packages:
     dependencies:
       '@babel/code-frame': 7.18.6
       address: 1.2.0
-      browserslist: 4.20.4
+      browserslist: 4.21.5
       chalk: 4.1.2
       cross-spawn: 7.0.3
       detect-port-alt: 1.1.6
@@ -20383,21 +20394,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /react-remove-scroll-bar/2.2.0_react@18.1.0:
-    resolution: {integrity: sha512-UU9ZBP1wdMR8qoUs7owiVcpaPwsQxUDC2lypP6mmixaGlARZa7ZIBx1jcuObLdhMOvCsnZcvetOho0wzPa9PYg==}
-    engines: {node: '>=8.5.0'}
-    peerDependencies:
-      '@types/react': ^16.8.0 || ^17.0.0
-      react: ^16.8.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      react: 18.1.0
-      react-style-singleton: 2.1.1_react@18.1.0
-      tslib: 1.14.1
-    dev: false
-
   /react-remove-scroll-bar/2.3.3_react@18.1.0:
     resolution: {integrity: sha512-i9GMNWwpz8XpUpQ6QlevUtFjHGqnPG4Hxs+wlIJntu/xcsZVEpJcIV71K3ZkqNy2q3GfgvkD7y6t/Sv8ofYSbw==}
     engines: {node: '>=10'}
@@ -20413,24 +20409,6 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /react-remove-scroll/2.4.4_react@18.1.0:
-    resolution: {integrity: sha512-EyC5ohYhaeKbThMSQxuN2i+QC5HqV3AJvNZKEdiATITexu0gHm00+5ko0ltNS1ajYJVeDgVG2baRSCei0AUWlQ==}
-    engines: {node: '>=8.5.0'}
-    peerDependencies:
-      '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      react: 18.1.0
-      react-remove-scroll-bar: 2.2.0_react@18.1.0
-      react-style-singleton: 2.1.1_react@18.1.0
-      tslib: 1.14.1
-      use-callback-ref: 1.2.5_react@18.1.0
-      use-sidecar: 1.0.5_react@18.1.0
-    dev: false
-
   /react-remove-scroll/2.5.4_react@18.1.0:
     resolution: {integrity: sha512-xGVKJJr0SJGQVirVFAUZ2k1QLyO6m+2fy0l8Qawbp5Jgrv3DeLalrfMNBFSlmz5kriGGzsVBtGVnf4pTKIhhWA==}
     engines: {node: '>=10'}
@@ -20444,7 +20422,7 @@ packages:
       react: 18.1.0
       react-remove-scroll-bar: 2.3.3_react@18.1.0
       react-style-singleton: 2.2.1_react@18.1.0
-      tslib: 2.3.1
+      tslib: 2.5.0
       use-callback-ref: 1.3.0_react@18.1.0
       use-sidecar: 1.1.2_react@18.1.0
     dev: false
@@ -20559,22 +20537,6 @@ packages:
       - webpack-cli
       - webpack-hot-middleware
       - webpack-plugin-serve
-    dev: false
-
-  /react-style-singleton/2.1.1_react@18.1.0:
-    resolution: {integrity: sha512-jNRp07Jza6CBqdRKNgGhT3u9umWvils1xsuMOjZlghBDH2MU0PL2WZor4PGYjXpnRCa9DQSlHMs/xnABWOwYbA==}
-    engines: {node: '>=8.5.0'}
-    peerDependencies:
-      '@types/react': ^16.8.0 || ^17.0.0
-      react: ^16.8.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      get-nonce: 1.0.1
-      invariant: 2.2.4
-      react: 18.1.0
-      tslib: 1.14.1
     dev: false
 
   /react-style-singleton/2.2.1_react@18.1.0:
@@ -22948,19 +22910,6 @@ packages:
     deprecated: Please see https://github.com/lydell/urix#deprecated
     dev: true
 
-  /use-callback-ref/1.2.5_react@18.1.0:
-    resolution: {integrity: sha512-gN3vgMISAgacF7sqsLPByqoePooY3n2emTH59Ur5d/M8eg4WTWu1xp8i8DHjohftIyEx0S08RiYxbffr4j8Peg==}
-    engines: {node: '>=8.5.0'}
-    peerDependencies:
-      '@types/react': ^16.8.0 || ^17.0.0
-      react: ^16.8.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      react: 18.1.0
-    dev: false
-
   /use-callback-ref/1.3.0_react@18.1.0:
     resolution: {integrity: sha512-3FT9PRuRdbB9HfXhEq35u4oZkvpJ5kuYbpqhCfmiZyReuRgpnhDlbr2ZEnnuS0RrJAPn6l23xjFg9kpDM+Ms7w==}
     engines: {node: '>=10'}
@@ -22973,17 +22922,6 @@ packages:
     dependencies:
       react: 18.1.0
       tslib: 2.5.0
-    dev: false
-
-  /use-sidecar/1.0.5_react@18.1.0:
-    resolution: {integrity: sha512-k9jnrjYNwN6xYLj1iaGhonDghfvmeTmYjAiGvOr7clwKfPjMXJf4/HOr7oT5tJwYafgp2tG2l3eZEOfoELiMcA==}
-    engines: {node: '>=8.5.0'}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0
-    dependencies:
-      detect-node-es: 1.1.0
-      react: 18.1.0
-      tslib: 1.14.1
     dev: false
 
   /use-sidecar/1.1.2_react@18.1.0:
@@ -23363,7 +23301,7 @@ packages:
       spdy: 4.0.2
       webpack: 5.73.0
       webpack-dev-middleware: 5.3.3_webpack@5.73.0
-      ws: 8.7.0
+      ws: 8.11.0
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -23855,19 +23793,6 @@ packages:
     dependencies:
       bufferutil: 4.0.7
       utf-8-validate: 5.0.10
-
-  /ws/8.7.0:
-    resolution: {integrity: sha512-c2gsP0PRwcLFzUiA8Mkr37/MI7ilIlHQxaEAtd0uNMbVMoy8puJyafRlm0bV9MbGSabUPeLrRRaqIBcFcA2Pqg==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: false
 
   /xdm/2.1.0:
     resolution: {integrity: sha512-3LxxbxKcRogYY7cQSMy1tUuU1zKNK9YPqMT7/S0r7Cz2QpyF8O9yFySGD7caOZt+LWUOQioOIX+6ZzCoBCpcAA==}

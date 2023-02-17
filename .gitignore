@@ -87,8 +87,8 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
-!packages/rainbowkit/node_modules/@firebase/**/*
-!packages/rainbowkit/node_modules/@toruslabs/**/*
+!packages/asteroidkit/node_modules/@firebase/**/*
+!packages/asteroidkit/node_modules/@toruslabs/**/*
 
 # Gatsby files
 .cache/

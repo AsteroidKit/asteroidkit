@@ -11,7 +11,7 @@ import { Text } from 'components/Text/Text';
 import { vars } from 'css/vars.css';
 import NextLink from 'next/link';
 import React from 'react';
-import pckg from '../../../packages/rainbowkit/package.json';
+import pckg from '../../../packages/asteroidkit/package.json';
 import { header, logo, row } from './Header.css';
 
 const RAINBOWKIT_VERSION = pckg.version;

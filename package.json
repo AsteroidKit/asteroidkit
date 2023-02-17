@@ -1,12 +1,12 @@
 {
-  "name": "rainbowkit",
+  "name": "asteroidkit-root",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "postinstall": "husky install",
-    "dev": "pnpm --recursive --parallel --filter @rainbow-me/rainbowkit* --filter asteroidkit-example --filter example dev",
-    "dev:lib": "pnpm --filter @rainbow-me/rainbowkit* dev",
+    "dev": "pnpm --recursive --parallel --filter asteroidkit --filter asteroidkit-example  dev",
+    "dev:lib": "pnpm --filter asteroidkit* dev",
     "dev:example": "pnpm dev:lib & pnpm --filter example dev",
     "dev:site": "pnpm dev:lib & pnpm --filter site dev",
     "dev:cli": "pnpm --filter @rainbow-me/create-rainbowkit dev",
@@ -31,8 +31,8 @@
     "release:verify-git": "git diff --exit-code && git rev-parse --abbrev-ref HEAD | grep \"main\"",
     "release:build": "pnpm clean && pnpm lint && pnpm test && MINIFY_CSS=true pnpm --recursive --parallel --filter \"!*-app\" build && cp README.md packages/rainbowkit/README.md",
     "release:test": "pnpm release:build && pnpm --filter example dev",
-    "ci:example": "pnpm --filter @rainbow-me/rainbowkit* prepare && pnpm --filter example build",
-    "ci:site": "pnpm --filter @rainbow-me/rainbowkit* prepare && pnpm --filter site build"
+    "ci:example": "pnpm --filter asteroidkit* prepare && pnpm --filter example build",
+    "ci:site": "pnpm --filter asteroidkit* prepare && pnpm --filter site build"
   },
   "repository": {
     "type": "git",

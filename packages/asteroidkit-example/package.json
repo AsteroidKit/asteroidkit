@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@rainbow-me/rainbowkit": "workspace:*",
+    "asteroidkit": "workspace:*",
     "esbuild": "*",
     "ethers": "^5.0.0",
     "siwe": "^1.1.6"

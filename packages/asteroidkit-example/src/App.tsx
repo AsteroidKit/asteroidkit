@@ -1,13 +1,9 @@
-import {
-  AsteroidKitProvider,
-  ConnectButton,
-  createClient,
-} from '@rainbow-me/rainbowkit';
+import { AsteroidKitProvider, ConnectButton, createClient } from 'asteroidkit';
 import React, { FC } from 'react';
 import { WagmiConfig } from 'wagmi';
 
 import './App.css';
-import '@rainbow-me/rainbowkit/styles.css';
+import 'asteroidkit/styles.css';
 
 const client = createClient();
 
