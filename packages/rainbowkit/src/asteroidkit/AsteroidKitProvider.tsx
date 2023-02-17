@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { SiweMessage } from 'siwe';
 import { Chain, configureChains, mainnet, useAccount, useClient } from 'wagmi';
 
@@ -33,6 +33,7 @@ import {
   TwitchConnector,
 } from './connectors/social/connector';
 import {
+  AppConfigInterface,
   ErrorNotFound,
   getAppInfo,
   getUserInfo,
@@ -320,7 +321,11 @@ const AsteroidKitConfigurationProvider = ({
     theme: lightTheme(),
     wallets: [],
   } as AsteroidKitConfiguration);
-  const alreadyOpenedUserDetailsRef = useRef(false);
+
+  // TODO: It is currently seems like a duplicated feature compared with the configuration useState, but I'm doing like that
+  // because I belive that both dashboard and rainbowkit should share the same AppConfigInterface object.
+  const [appConfig, setAppConfig] = useState<AppConfigInterface>();
+
   const { address, isConnected } = useAccount();
   const [isUserDetailsModalOpen, setIsUserDetailsModalOpen] = useState(false);
 
@@ -347,8 +352,7 @@ const AsteroidKitConfigurationProvider = ({
 
   useEffect(() => {
     const init = async () => {
-      if (isConnected) {
-        alreadyOpenedUserDetailsRef.current = true;
+      if (isConnected && !!appConfig?.askUserInformation) {
         await getUserInfo({ address, appId }).catch(e => {
           if (e instanceof ErrorNotFound) {
             setIsUserDetailsModalOpen(true);
@@ -358,12 +362,13 @@ const AsteroidKitConfigurationProvider = ({
     };
 
     init();
-  }, [isConnected, address]);
+  }, [isConnected, address, appConfig]);
 
   // load data
   useEffect(() => {
     getAppInfo(appId)
       .then(data => {
+        setAppConfig(data);
         setConfiguration({
           chains: mapChainNameToWAGMIChain(data.chains), // Todo: better analyse how to deal with migration.
           siwe: data.siwe,

@@ -3,16 +3,19 @@ import { initializeApp } from 'firebase/app';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 
 export interface AppConfigInterface {
+  appId: string;
+  themeId: string;
   accentColor: string;
   accentForegroundColor: string;
-  appId: string;
-  chains: string[];
-  compact: boolean;
   siwe: boolean;
   social: boolean;
-  theme: string;
-  themeId: string;
   wallets: string[];
+  chains: string[];
+  compact: boolean;
+  askUserInformation: boolean;
+  userEmail: string;
+  domains: string[];
+  createdAt: string;
 }
 
 export interface UserInfoInterface {
