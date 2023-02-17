@@ -1,8 +1,17 @@
 import React, { FC, useEffect, useState } from 'react';
 import { SiweMessage } from 'siwe';
-import { Chain, configureChains, mainnet, useAccount, useClient } from 'wagmi';
+import { Chain, configureChains, useAccount, useClient } from 'wagmi';
 
-import { avalanche, optimism, polygon, polygonMumbai } from 'wagmi/chains';
+import {
+  avalanche,
+  avalancheFuji,
+  goerli,
+  mainnet,
+  optimism,
+  optimismGoerli,
+  polygon,
+  polygonMumbai,
+} from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import {
   createAuthenticationAdapter,
@@ -29,6 +38,7 @@ import {
   walletConnectWallet,
 } from '../wallets/walletConnectors';
 import {
+  configureWeb3Auth,
   GoogleConnector,
   TwitchConnector,
 } from './connectors/social/connector';
@@ -61,23 +71,22 @@ interface AsteroidKitConfiguration {
   wallets: string[];
 }
 
-const mapChainNameToWAGMIChain = (chains: string[]): Chain[] =>
-  chains.map(chain => {
-    switch (chain) {
-      case 'mainnet':
-        return mainnet;
-      case 'optimism':
-        return optimism;
-      case 'avalanche':
-        return avalanche;
-      case 'polygon':
-        return polygon;
-      case 'polygonMumbai':
-        return polygonMumbai;
-      default:
-        throw new Error('Chain not supported');
-    }
-  });
+const mapChainNameToWAGMIChain = (chains: string[]): Chain[] => {
+  const SupportedChains = {
+    avalanche,
+    avalancheFuji,
+    mainnet,
+    optimism,
+    polygon,
+    polygonMumbai,
+    goerli,
+    optimismGoerli,
+  };
+
+  return chains
+    .filter(chain => Object.keys(SupportedChains).includes(chain))
+    .map(chain => SupportedChains[chain as keyof typeof SupportedChains]);
+};
 
 const mapWalletNameToRainbowKitWallet = (
   walletList: string[] = [],
@@ -400,11 +409,19 @@ const AsteroidKitConfigurationProvider = ({
         ];
 
         if (data.social) {
+          const web3AuthInstance = configureWeb3Auth(wagmiChains);
+
           walletGroups.push({
             groupName: 'Social',
             wallets: [
-              GoogleConnector({ chains: wagmiChains }),
-              TwitchConnector({ chains: wagmiChains }),
+              GoogleConnector({
+                chains: wagmiChains,
+                web3AuthInstance,
+              }),
+              TwitchConnector({
+                chains: wagmiChains,
+                web3AuthInstance,
+              }),
             ],
           });
         }

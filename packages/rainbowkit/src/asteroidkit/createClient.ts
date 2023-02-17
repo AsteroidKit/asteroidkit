@@ -1,8 +1,11 @@
 import { configureChains, createClient as wagmiCreateClient } from 'wagmi';
 import {
   avalanche,
+  avalancheFuji,
+  goerli,
   mainnet,
   optimism,
+  optimismGoerli,
   polygon,
   polygonMumbai,
 } from 'wagmi/chains';
@@ -14,7 +17,16 @@ import { metaMaskWallet } from '../wallets/walletConnectors';
 
 export const createClient = (): any => {
   const { chains, provider } = configureChains(
-    [mainnet, optimism, avalanche, polygon, polygonMumbai],
+    [
+      mainnet,
+      optimism,
+      avalanche,
+      polygon,
+      polygonMumbai,
+      goerli,
+      avalancheFuji,
+      optimismGoerli,
+    ],
     [
       alchemyProvider({
         // This is Alchemy's default API key.

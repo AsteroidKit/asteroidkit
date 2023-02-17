@@ -1,34 +1,44 @@
 import { CHAIN_NAMESPACES } from '@web3auth/base';
 import { Web3AuthCore } from '@web3auth/core';
 import { OpenloginAdapter } from '@web3auth/openlogin-adapter';
-import { Connector } from 'wagmi';
+import { Chain } from 'wagmi';
 import { Wallet } from '../../../wallets/Wallet';
 import { GenericSocialConnector } from './GenericSocialConnector';
 import { OpenLoginAdapterConfig } from './OpenLoginAdapterConfig';
 
-const chainConfig = {
-  blockExplorer: 'https://etherscan.io/',
+export const configureWeb3Auth = (chains: Chain[]) => {
+  const chainConfig = {
+    blockExplorer: chains[0]?.blockExplorers.default?.url,
+    chainId: `0x${chains[0].id.toString(16)}`,
+    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    displayName: chains[0].name,
+    rpcTarget: chains[0].rpcUrls.default.http[0], // This is the public RPC we have added, please pass on your own endpoint while creating an app
+    tickerName: chains[0].nativeCurrency?.name,
+    ticker: chains[0].nativeCurrency?.symbol,
+  };
 
-  chainId: '0x1',
-  // this is ethereum chain config, change if other chain(Solana, Polygon)
-  chainNamespace: CHAIN_NAMESPACES.EIP155,
-  rpcTarget:
-    'https://eth-mainnet.g.alchemy.com/v2/oZsv-F9NN3NhersEryE56jM08jomw0Ya',
-  ticker: 'ETH',
-  tickerName: 'Ethereum',
+  const web3AuthInstance = new Web3AuthCore({
+    clientId:
+      'BOpE2QwLzG8lTiFOblI4-5Tv7dEuQ3--ZCVdNpmnC7DqMhsxdKpUaE2tF3IUizccy7_B4h04uEj6g5zpqYbRf9c',
+    chainConfig,
+  });
+
+  web3AuthInstance.configureAdapter(
+    new OpenloginAdapter(OpenLoginAdapterConfig)
+  );
+
+  return web3AuthInstance;
 };
 
-const web3AuthInstance = new Web3AuthCore({
-  chainConfig,
-  clientId:
-    'BOpE2QwLzG8lTiFOblI4-5Tv7dEuQ3--ZCVdNpmnC7DqMhsxdKpUaE2tF3IUizccy7_B4h04uEj6g5zpqYbRf9c',
-});
-
-web3AuthInstance.configureAdapter(new OpenloginAdapter(OpenLoginAdapterConfig));
+interface ISocialConnector {
+  chains: Chain[];
+  web3AuthInstance: Web3AuthCore;
+}
 
 export const GoogleConnector = ({
   chains,
-}: any): Wallet<Connector<any, any, any>> => ({
+  web3AuthInstance,
+}: ISocialConnector): Wallet => ({
   createConnector: (): any => {
     const connector = new GenericSocialConnector({
       chains,
@@ -48,7 +58,10 @@ export const GoogleConnector = ({
   name: 'Google',
 });
 
-export const TwitchConnector = ({ chains }: any): Wallet => ({
+export const TwitchConnector = ({
+  chains,
+  web3AuthInstance,
+}: ISocialConnector): Wallet => ({
   createConnector: (): any => {
     const connector = new GenericSocialConnector({
       chains,
