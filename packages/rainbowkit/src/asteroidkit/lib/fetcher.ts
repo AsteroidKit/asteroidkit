@@ -1,18 +1,27 @@
 import { logEvent as firebaseLogEvent, getAnalytics } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 
 export interface AppConfigInterface {
+  appId: string;
+  themeId: string;
   accentColor: string;
   accentForegroundColor: string;
-  appId: string;
-  chains: string[];
-  compact: boolean;
   siwe: boolean;
   social: boolean;
-  theme: string;
-  themeId: string;
   wallets: string[];
+  chains: string[];
+  compact: boolean;
+  askUserInformation: boolean;
+  userEmail: string;
+  domains: string[];
+  createdAt: string;
+}
+
+export interface UserInfoInterface {
+  name: string;
+  email: string;
+  cancelled?: boolean;
 }
 
 const firebaseConfig = {
@@ -26,14 +35,19 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 let hasSentLoadConfigurationEvent = false;
 
-export const fetchFromServers = async (
+export class ErrorNotFound extends Error {
+  get name() {
+    return this.constructor.name;
+  }
+}
+
+export const getAppInfo = async (
   appId: string
 ): Promise<AppConfigInterface> => {
-  const db = getFirestore(app);
-
   const appInfoDocRef = doc(db, 'appInfo', appId);
   const appInfoSnap = await getDoc(appInfoDocRef);
 
@@ -54,3 +68,40 @@ export const fetchFromServers = async (
     appId: appInfoSnap.id,
   } as AppConfigInterface;
 };
+
+export const getUserInfo = async ({
+  address,
+  appId,
+}: {
+  appId: string;
+  address: string;
+}): Promise<UserInfoInterface> => {
+  const userInfoDocRef = getUserInfoRef(appId, address);
+  const userInfoSnap = await getDoc(userInfoDocRef);
+
+  if (!userInfoSnap.exists()) {
+    throw new ErrorNotFound('No user info was found');
+  }
+
+  return {
+    ...userInfoSnap.data(),
+  } as UserInfoInterface;
+};
+
+export const setUserInfo = async ({
+  address,
+  appId,
+  userInfo,
+}: {
+  appId: string;
+  address: string;
+  userInfo: Partial<UserInfoInterface>;
+}): Promise<Partial<UserInfoInterface>> => {
+  const userInfoDocRef = getUserInfoRef(appId, address);
+
+  await setDoc(userInfoDocRef, userInfo);
+  return userInfo as Partial<UserInfoInterface>;
+};
+
+const getUserInfoRef = (appId: string, address: string) =>
+  doc(db, 'appInfo', appId, 'users', address);

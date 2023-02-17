@@ -11,6 +11,8 @@ import '@rainbow-me/rainbowkit/styles.css';
 
 const client = createClient();
 
+const appId = import.meta.env.VITE_APP_ID;
+
 const AppContent: FC = () => {
   return (
     <div>
@@ -23,7 +25,7 @@ function App() {
   return (
     <div className="App">
       <WagmiConfig client={client}>
-        <AsteroidKitProvider appId="o1zEwDQ36JUavB">
+        <AsteroidKitProvider appId={appId}>
           <AppContent />
         </AsteroidKitProvider>
       </WagmiConfig>

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { SiweMessage } from 'siwe';
-import { Chain, configureChains, mainnet, useClient } from 'wagmi';
+import { Chain, configureChains, mainnet, useAccount, useClient } from 'wagmi';
 
 import { avalanche, optimism, polygon, polygonMumbai } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
@@ -32,7 +32,18 @@ import {
   GoogleConnector,
   TwitchConnector,
 } from './connectors/social/connector';
-import { fetchFromServers } from './lib/fetcher';
+import {
+  AppConfigInterface,
+  ErrorNotFound,
+  getAppInfo,
+  getUserInfo,
+  setUserInfo,
+  UserInfoInterface,
+} from './lib/fetcher';
+import {
+  UserDetailsModal,
+  UserDetailsModalCloseResolution,
+} from './ui/UserDetailsModal/UserDetailsModal';
 
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
@@ -311,12 +322,53 @@ const AsteroidKitConfigurationProvider = ({
     wallets: [],
   } as AsteroidKitConfiguration);
 
+  // TODO: It is currently seems like a duplicated feature compared with the configuration useState, but I'm doing like that
+  // because I belive that both dashboard and rainbowkit should share the same AppConfigInterface object.
+  const [appConfig, setAppConfig] = useState<AppConfigInterface>();
+
+  const { address, isConnected } = useAccount();
+  const [isUserDetailsModalOpen, setIsUserDetailsModalOpen] = useState(false);
+
+  const onSubmitModal = async (userInfo: Omit<UserInfoInterface, 'id'>) => {
+    await setUserInfo({ address, appId, userInfo }).catch(e => {
+      throw e;
+    });
+  };
+
+  const onModalClose = async (resolution: UserDetailsModalCloseResolution) => {
+    if (resolution === UserDetailsModalCloseResolution.USER_CANCEL) {
+      await setUserInfo({
+        address,
+        appId,
+        userInfo: { cancelled: true },
+      }).catch(e => {
+        throw e;
+      });
+    }
+    setIsUserDetailsModalOpen(false);
+  };
+
   const { setReady, setValue } = useAsteroidKitSyncState();
+
+  useEffect(() => {
+    const init = async () => {
+      if (isConnected && !!appConfig?.askUserInformation) {
+        await getUserInfo({ address, appId }).catch(e => {
+          if (e instanceof ErrorNotFound) {
+            setIsUserDetailsModalOpen(true);
+          }
+        });
+      }
+    };
+
+    init();
+  }, [isConnected, address, appConfig]);
 
   // load data
   useEffect(() => {
-    fetchFromServers(appId)
+    getAppInfo(appId)
       .then(data => {
+        setAppConfig(data);
         setConfiguration({
           chains: mapChainNameToWAGMIChain(data.chains), // Todo: better analyse how to deal with migration.
           siwe: data.siwe,
@@ -448,6 +500,11 @@ const AsteroidKitConfigurationProvider = ({
         theme={configuration.theme as Theme}
       >
         {children}
+        <UserDetailsModal
+          onClose={onModalClose}
+          onSubmit={onSubmitModal}
+          open={isUserDetailsModalOpen}
+        />
       </RainbowKitProvider>
     </RainbowKitAuthenticationProvider>
   );
@@ -467,21 +524,9 @@ const AsteroidKitProvider: FC<AsteroidKitProviderProps & { appId: string }> = ({
   theme,
 }) => {
   const client = useClient();
-  // const [isUserInfoModalVisible, setIsUserInfoModalVisible] = useState(false);
-  // const userInfoModalShouldDisplayRef = useRef(false);
-
-  // const { openUserDetailsModal } = useUserDetailsModal();
 
   const chainsFromClient = client.chains;
   const chains = chainsFromClient ?? chainsFromUser;
-
-  // const { connector: activeConnector, isConnected } = useAccount();
-
-  // useEffect(() => {
-  //   if (isConnected && openUserDetailsModal) {
-  //     openUserDetailsModal();
-  //   }
-  // }, [isConnected]);
 
   return (
     <>
