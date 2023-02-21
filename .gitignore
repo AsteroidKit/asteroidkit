@@ -1,6 +1,3 @@
-# The readme is copied from the root before release
-packages/rainbowkit/README.md
-
 # Logs
 logs
 *.log
@@ -42,8 +39,8 @@ build/Release
 
 # Dependency directories
 **/node_modules/*
-!packages/rainbowkit/node_modules/@firebase
-!packages/rainbowkit/node_modules/@toruslabs
+!packages/asteroidkit/node_modules/@firebase
+!packages/asteroidkit/node_modules/@toruslabs
 jspm_packages/
 
 # TypeScript v1 declaration files
