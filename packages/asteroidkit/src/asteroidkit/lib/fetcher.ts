@@ -1,6 +1,15 @@
 import { logEvent as firebaseLogEvent, getAnalytics } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
-import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  FieldValue,
+  getDoc,
+  getFirestore,
+  serverTimestamp,
+  setDoc,
+} from 'firebase/firestore';
 
 export interface AppConfigInterface {
   appId: string;
@@ -24,6 +33,18 @@ export interface UserInfoInterface {
   cancelled?: boolean;
 }
 
+export enum EVENT_TYPE {
+  CONNECTED = 'connected',
+  DISCONNECTED = 'disconnected',
+}
+
+export interface EventInterface {
+  id: string;
+  createdAt: FieldValue;
+  address: string;
+  type: EVENT_TYPE;
+}
+
 const firebaseConfig = {
   apiKey: 'AIzaSyC6VU0evv45aA8auEpAR7_oJkNrUtu_vm0',
   appId: '1:770385218222:web:f2e9b78ee12eb871a47b3f',
@@ -38,12 +59,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let hasSentLoadConfigurationEvent = false;
-
-export class ErrorNotFound extends Error {
-  get name() {
-    return this.constructor.name;
-  }
-}
 
 export const getAppInfo = async (
   appId: string
@@ -75,12 +90,12 @@ export const getUserInfo = async ({
 }: {
   appId: string;
   address: string;
-}): Promise<UserInfoInterface> => {
+}): Promise<UserInfoInterface | null> => {
   const userInfoDocRef = getUserInfoRef(appId, address);
   const userInfoSnap = await getDoc(userInfoDocRef);
 
-  if (!userInfoSnap.exists()) {
-    throw new ErrorNotFound('No user info was found');
+  if (!userInfoSnap.data()) {
+    return null;
   }
 
   return {
@@ -103,5 +118,30 @@ export const setUserInfo = async ({
   return userInfo as Partial<UserInfoInterface>;
 };
 
+export const addEvent = async ({
+  address,
+  appId,
+  eventType,
+}: {
+  appId: string;
+  address: string;
+  eventType: EVENT_TYPE;
+}): Promise<EventInterface> => {
+  const eventCollectionRef = getEventsCollectionRef(appId);
+
+  const newEventData = {
+    address,
+    createdAt: serverTimestamp(),
+    type: eventType,
+  };
+
+  const newEventRef = await addDoc(eventCollectionRef, newEventData);
+
+  return { ...newEventData, id: newEventRef.id };
+};
+
 const getUserInfoRef = (appId: string, address: string) =>
   doc(db, 'appInfo', appId, 'users', address);
+
+const getEventsCollectionRef = (appId: string) =>
+  collection(db, 'appInfo', appId, 'events');
