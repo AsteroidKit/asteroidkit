@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { SiweMessage } from 'siwe';
 import { Chain, configureChains, useAccount, useClient } from 'wagmi';
 
@@ -43,8 +43,9 @@ import {
   TwitchConnector,
 } from './connectors/social/connector';
 import {
+  addEvent,
   AppConfigInterface,
-  ErrorNotFound,
+  EVENT_TYPE,
   getAppInfo,
   getUserInfo,
   setUserInfo,
@@ -335,11 +336,17 @@ const AsteroidKitConfigurationProvider = ({
   // because I belive that both dashboard and rainbowkit should share the same AppConfigInterface object.
   const [appConfig, setAppConfig] = useState<AppConfigInterface>();
 
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, status } = useAccount();
+  const lastAvailableAddressRef = useRef<string>();
+  const lastStatusRef = useRef<string>();
   const [isUserDetailsModalOpen, setIsUserDetailsModalOpen] = useState(false);
 
   const onSubmitModal = async (userInfo: Omit<UserInfoInterface, 'id'>) => {
-    await setUserInfo({ address, appId, userInfo }).catch(e => {
+    await setUserInfo({
+      address,
+      appId,
+      userInfo: { ...userInfo, cancelled: false },
+    }).catch(e => {
       throw e;
     });
   };
@@ -361,17 +368,52 @@ const AsteroidKitConfigurationProvider = ({
 
   useEffect(() => {
     const init = async () => {
-      if (isConnected && !!appConfig?.askUserInformation) {
-        await getUserInfo({ address, appId }).catch(e => {
-          if (e instanceof ErrorNotFound) {
+      if (isConnected) {
+        const userInfo = await getUserInfo({ address, appId });
+
+        if (!userInfo) {
+          if (appConfig?.askUserInformation) {
             setIsUserDetailsModalOpen(true);
+          } else {
+            setUserInfo({ address, appId, userInfo: { cancelled: false } });
           }
-        });
+        }
       }
     };
 
     init();
   }, [isConnected, address, appConfig]);
+
+  useEffect(() => {
+    if (status === EVENT_TYPE.CONNECTED) {
+      lastAvailableAddressRef.current = address;
+    }
+
+    if (
+      lastStatusRef.current === EVENT_TYPE.CONNECTED &&
+      status === EVENT_TYPE.DISCONNECTED &&
+      lastAvailableAddressRef.current
+    ) {
+      addEvent({
+        address: lastAvailableAddressRef.current,
+        appId,
+        eventType: EVENT_TYPE.DISCONNECTED,
+      });
+    } else if (
+      (lastStatusRef.current === EVENT_TYPE.DISCONNECTED ||
+        lastStatusRef.current === 'connecting') &&
+      status === EVENT_TYPE.CONNECTED &&
+      lastAvailableAddressRef.current
+    ) {
+      addEvent({
+        address: lastAvailableAddressRef.current,
+        appId,
+        eventType: EVENT_TYPE.CONNECTED,
+      });
+    }
+
+    lastStatusRef.current = status;
+  }, [status]);
 
   // load data
   useEffect(() => {
