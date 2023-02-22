@@ -245,9 +245,9 @@ interface SelectorOptions {
 function SliderSelector({ onClickOption }: SliderSelectorProps) {
   const [options, setOptions] = useState<SelectorOptions[]>([
     {
-      label: 'Collectables',
+      label: 'Collectibles',
       selected: true,
-      value: 'collectables',
+      value: 'collectibles',
     },
     {
       label: 'Coins',
@@ -323,8 +323,8 @@ export function ProfileDetails({
   const showRecentTransactions = useContext(ShowRecentTransactionsContext);
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [assetsCategory, setAssetsCategory] = useState<
-    'coins' | 'collectables'
-  >('collectables');
+    'coins' | 'collectibles'
+  >('collectibles');
   const [nftMetadata, setNftMetadata] = useState<OwnedNftsResponse>();
   const [coinsMetadata, setCoinsMetadata] = useState<CoinMetadata[]>([]);
   const { connector } = useAccount();
@@ -496,7 +496,7 @@ export function ProfileDetails({
             <Box>
               <SliderSelector
                 onClickOption={option =>
-                  setAssetsCategory(option as 'coins' | 'collectables')
+                  setAssetsCategory(option as 'coins' | 'collectibles')
                 }
               />
             </Box>
@@ -538,7 +538,7 @@ export function ProfileDetails({
                   </Box>
                 )}
 
-                {assetsCategory === 'collectables' && (
+                {assetsCategory === 'collectibles' && (
                   <>
                     {nftMetadata?.ownedNfts !== undefined &&
                       nftMetadata?.ownedNfts.length > 0 && (
