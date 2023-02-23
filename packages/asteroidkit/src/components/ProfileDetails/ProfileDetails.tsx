@@ -258,14 +258,14 @@ function SliderSelector({ onClickOption }: SliderSelectorProps) {
 
   return (
     <Box
+      background={{
+        base: 'profileAction',
+      }}
       borderRadius="connectButton"
       display="block"
       marginTop="10"
       paddingX="8"
       paddingY="12"
-      background={{
-        base: 'profileAction',
-      }}
       width="full"
     >
       <Box
