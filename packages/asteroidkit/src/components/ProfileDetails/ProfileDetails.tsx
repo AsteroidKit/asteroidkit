@@ -263,7 +263,9 @@ function SliderSelector({ onClickOption }: SliderSelectorProps) {
       marginTop="10"
       paddingX="8"
       paddingY="12"
-      style={{ backgroundColor: '#F0F0F0' }}
+      background={{
+        base: 'profileAction',
+      }}
       width="full"
     >
       <Box
@@ -299,7 +301,7 @@ function SliderSelector({ onClickOption }: SliderSelectorProps) {
               width="full"
             >
               <Text
-                color={option.selected ? 'accentColor' : 'modalTextSecondary'}
+                color={option.selected ? 'modalText' : 'modalTextSecondary'}
                 weight="semibold"
               >
                 {option.label}
