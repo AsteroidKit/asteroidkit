@@ -208,7 +208,7 @@ export function SignIn({ onClose }: { onClose: () => void }) {
                 ? 'Waiting for signature...'
                 : status === 'verifying'
                 ? 'Verifying signature...'
-                : 'Send message'
+                : 'Verify'
             }
             onClick={signIn}
             size={mobile ? 'large' : 'medium'}
