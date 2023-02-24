@@ -31,6 +31,7 @@ export interface UserInfoInterface {
   name: string;
   email: string;
   cancelled?: boolean;
+  extraInfoProvided: boolean;
 }
 
 export enum EVENT_TYPE {

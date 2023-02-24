@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { SiweMessage } from 'siwe';
 import { Chain, configureChains, useAccount, useClient } from 'wagmi';
 
@@ -23,6 +23,7 @@ import {
   RainbowKitProviderProps,
   Theme,
 } from '../components/RainbowKitProvider/RainbowKitProvider';
+import { useConnectionStatus } from '../hooks/useConnectionStatus';
 import {
   AsteroidKitSyncProvider,
   useAsteroidKitSyncState,
@@ -310,6 +311,107 @@ const mapThemeNameToRainbowKitTheme = (
   }
 };
 
+const AsteroidKitRainbowkitWrapper: FC<{
+  children: ReactNode;
+  appId: string;
+  appConfig?: AppConfigInterface;
+}> = ({ appConfig, appId, children }) => {
+  const [isUserDetailsModalOpen, setIsUserDetailsModalOpen] = useState(false);
+  const lastAvailableAddressRef = useRef<string>();
+  const lastStatusRef = useRef<string>();
+
+  const status = useConnectionStatus();
+  const { address } = useAccount();
+
+  const onSubmitModal = async (userInfo: Omit<UserInfoInterface, 'id'>) => {
+    await setUserInfo({
+      address,
+      appId,
+      userInfo: { ...userInfo, cancelled: false, extraInfoProvided: true },
+    }).catch(e => {
+      throw e;
+    });
+  };
+
+  const onModalClose = async (resolution: UserDetailsModalCloseResolution) => {
+    if (resolution === UserDetailsModalCloseResolution.USER_CANCEL) {
+      await setUserInfo({
+        address,
+        appId,
+        userInfo: { cancelled: true, extraInfoProvided: false },
+      }).catch(e => {
+        throw e;
+      });
+    }
+    setIsUserDetailsModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (
+      lastStatusRef.current === EVENT_TYPE.CONNECTED &&
+      status === EVENT_TYPE.DISCONNECTED &&
+      lastAvailableAddressRef.current
+    ) {
+      addEvent({
+        address: lastAvailableAddressRef.current,
+        appId: appId,
+        eventType: EVENT_TYPE.DISCONNECTED,
+      });
+    } else if (
+      (['disconnected', 'connecting', 'unauthenticated'].includes(
+        String(lastStatusRef.current)
+      ) &&
+        status === EVENT_TYPE.CONNECTED) ||
+      (status === EVENT_TYPE.CONNECTED &&
+        lastAvailableAddressRef.current &&
+        lastAvailableAddressRef.current !== address)
+    ) {
+      addEvent({
+        address,
+        appId: appId,
+        eventType: EVENT_TYPE.CONNECTED,
+      });
+      getUserInfo({ address, appId }).then(userInfo => {
+        if (!userInfo) {
+          if (appConfig?.askUserInformation) {
+            setIsUserDetailsModalOpen(true);
+          } else {
+            setUserInfo({
+              address,
+              appId,
+              userInfo: { cancelled: false, extraInfoProvided: false },
+            });
+          }
+        } else {
+          if (
+            appConfig?.askUserInformation &&
+            !userInfo.extraInfoProvided &&
+            !userInfo.cancelled
+          ) {
+            setIsUserDetailsModalOpen(true);
+          }
+        }
+      });
+    }
+
+    lastStatusRef.current = status;
+    if (status === EVENT_TYPE.CONNECTED) {
+      lastAvailableAddressRef.current = address;
+    }
+  }, [status, appConfig, address]);
+
+  return (
+    <>
+      {children}
+      <UserDetailsModal
+        onClose={onModalClose}
+        onSubmit={onSubmitModal}
+        open={isUserDetailsModalOpen}
+      />
+    </>
+  );
+};
+
 const AsteroidKitConfigurationProvider = ({
   appId,
   appInfo,
@@ -336,84 +438,7 @@ const AsteroidKitConfigurationProvider = ({
   // because I belive that both dashboard and rainbowkit should share the same AppConfigInterface object.
   const [appConfig, setAppConfig] = useState<AppConfigInterface>();
 
-  const { address, isConnected, status } = useAccount();
-  const lastAvailableAddressRef = useRef<string>();
-  const lastStatusRef = useRef<string>();
-  const [isUserDetailsModalOpen, setIsUserDetailsModalOpen] = useState(false);
-
-  const onSubmitModal = async (userInfo: Omit<UserInfoInterface, 'id'>) => {
-    await setUserInfo({
-      address,
-      appId,
-      userInfo: { ...userInfo, cancelled: false },
-    }).catch(e => {
-      throw e;
-    });
-  };
-
-  const onModalClose = async (resolution: UserDetailsModalCloseResolution) => {
-    if (resolution === UserDetailsModalCloseResolution.USER_CANCEL) {
-      await setUserInfo({
-        address,
-        appId,
-        userInfo: { cancelled: true },
-      }).catch(e => {
-        throw e;
-      });
-    }
-    setIsUserDetailsModalOpen(false);
-  };
-
   const { setReady, setValue } = useAsteroidKitSyncState();
-
-  useEffect(() => {
-    const init = async () => {
-      if (isConnected) {
-        const userInfo = await getUserInfo({ address, appId });
-
-        if (!userInfo) {
-          if (appConfig?.askUserInformation) {
-            setIsUserDetailsModalOpen(true);
-          } else {
-            setUserInfo({ address, appId, userInfo: { cancelled: false } });
-          }
-        }
-      }
-    };
-
-    init();
-  }, [isConnected, address, appConfig]);
-
-  useEffect(() => {
-    if (status === EVENT_TYPE.CONNECTED) {
-      lastAvailableAddressRef.current = address;
-    }
-
-    if (
-      lastStatusRef.current === EVENT_TYPE.CONNECTED &&
-      status === EVENT_TYPE.DISCONNECTED &&
-      lastAvailableAddressRef.current
-    ) {
-      addEvent({
-        address: lastAvailableAddressRef.current,
-        appId,
-        eventType: EVENT_TYPE.DISCONNECTED,
-      });
-    } else if (
-      (lastStatusRef.current === EVENT_TYPE.DISCONNECTED ||
-        lastStatusRef.current === 'connecting') &&
-      status === EVENT_TYPE.CONNECTED &&
-      lastAvailableAddressRef.current
-    ) {
-      addEvent({
-        address: lastAvailableAddressRef.current,
-        appId,
-        eventType: EVENT_TYPE.CONNECTED,
-      });
-    }
-
-    lastStatusRef.current = status;
-  }, [status]);
 
   // load data
   useEffect(() => {
@@ -558,12 +583,9 @@ const AsteroidKitConfigurationProvider = ({
         showRecentTransactions={showRecentTransactions}
         theme={configuration.theme as Theme}
       >
-        {children}
-        <UserDetailsModal
-          onClose={onModalClose}
-          onSubmit={onSubmitModal}
-          open={isUserDetailsModalOpen}
-        />
+        <AsteroidKitRainbowkitWrapper appConfig={appConfig} appId={appId}>
+          {children}
+        </AsteroidKitRainbowkitWrapper>
       </RainbowKitProvider>
     </RainbowKitAuthenticationProvider>
   );

@@ -23,7 +23,11 @@ export interface IUserData {
 export interface UserDetailsModalProps {
   open: boolean;
   onClose: (resolution: UserDetailsModalCloseResolution) => void;
-  onSubmit: (data: { name: string; email: string }) => any;
+  onSubmit: (data: {
+    name: string;
+    email: string;
+    extraInfoProvided: boolean;
+  }) => any;
 }
 
 export function UserDetailsModal({
@@ -45,7 +49,7 @@ export function UserDetailsModal({
     event.preventDefault();
 
     setIsLoading(true);
-    await onSubmit({ email, name })
+    await onSubmit({ email, extraInfoProvided: true, name })
       .then(() => onClose(UserDetailsModalCloseResolution.SUCCESS))
       .catch(() => {
         onClose(UserDetailsModalCloseResolution.ERROR);
