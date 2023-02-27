@@ -521,6 +521,16 @@ const AsteroidKitConfigurationProvider = ({
     useState('unauthenticated');
   const baseUrl = 'https://auth.asteroidkit.com'; // The address of our backend
 
+  useEffect(() => {
+    fetch(`${baseUrl}/personal_information`, { credentials: 'include' }).then(
+      res => {
+        if (res.status === 200) {
+          setAuthenticationStatus('authenticated');
+        }
+      }
+    );
+  }, []);
+
   const authenticationAdapter = createAuthenticationAdapter({
     createMessage: ({ address, chainId, nonce }) =>
       new SiweMessage({
@@ -543,7 +553,9 @@ const AsteroidKitConfigurationProvider = ({
     },
 
     signOut: async () => {
-      await fetch(`${baseUrl}/logout`);
+      fetch(`${baseUrl}/logout`, { credentials: 'include' }).then(() =>
+        setAuthenticationStatus('unauthenticated')
+      );
     },
 
     verify: async ({ message, signature }) => {
