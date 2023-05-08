@@ -12,6 +12,11 @@ import {
 import { abi } from '../contract-abi';
 import FlipCard, { BackCard, FrontCard } from '../components/FlipCard';
 
+const contractConfig = {
+  address: '0x86fbbb1254c39602a7b067d5ae7e5c2bdfd61a30',
+  abi,
+};
+
 const Home: NextPage = () => {
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
@@ -20,8 +25,7 @@ const Home: NextPage = () => {
   const { isConnected } = useAccount();
 
   const { config: contractWriteConfig } = usePrepareContractWrite({
-    address: '0x86fbbb1254c39602a7b067d5ae7e5c2bdfd61a30',
-    abi,
+    ...contractConfig,
     functionName: 'mint',
   });
 
@@ -34,8 +38,7 @@ const Home: NextPage = () => {
   } = useContractWrite(contractWriteConfig);
 
   const { data: totalSupplyData } = useContractRead({
-    address: '0x86fbbb1254c39602a7b067d5ae7e5c2bdfd61a30',
-    abi,
+    ...contractConfig,
     functionName: 'totalSupply',
     watch: true,
   });
